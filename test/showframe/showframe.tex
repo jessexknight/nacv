@@ -1,0 +1,23 @@
+\usepackage[noframe]{showframe}
+\makeatletter
+\newcounter{line}
+\newlength\boxheight\setlength\boxheight{5\baselineskip}
+\newlength\boxsep\setlength\boxsep{\baselineskip}%
+\newcommand{\fromtop}{\dimexpr\textheight-\boxheight-\theline\boxheight-\theline\boxsep}
+\newcommand{\drawbox}[3]{\rlap{\color{red}#2}\framebox(#1,\boxheight)\hfill\llap{\color{red}#3}}
+\newcommand{\nacvShowFramePicture}{%
+  \linethickness{\ShowFrameLinethickness}%
+  \AtTextLowerLeft{%
+    \put(0,\fromtop){\drawbox{.65\textwidth}{name + title}{}}
+    \put(.65\textwidth,\fromtop){\drawbox{.35\textwidth}{}{contact}}
+    \stepcounter{line}\twodate
+    \put(0,\fromtop){\drawbox{\nacv@w@date}{date 1}{}}
+    \put(\nacv@w@date,\fromtop){{\color{red}\nacv@datesep}}
+    \put(\dimexpr\nacv@w@date+\nacv@w@datesep,\fromtop){\drawbox{\nacv@w@date}{}{date 2}}
+    \put(\nacv@w@datexplus,\fromtop){\drawbox{\nacv@w@afterdatex}{twodate content}{}}
+    \stepcounter{line}\onedate
+    \put(0,\fromtop){\drawbox{\nacv@w@datex}{}{date}}
+    \put(\nacv@w@datexplus,\fromtop){\drawbox{\nacv@w@afterdatex}{onedate content}{}}
+}}
+\AddToShipoutPictureFG{\nacvShowFramePicture}
+\makeatother
