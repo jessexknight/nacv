@@ -74,6 +74,8 @@
 \renewcommand{\title}[1]{
   \gdef\nacv@title{#1}
 }\title{(Title)}
+% hyperref hack: https://tex.stackexchange.com/questions/484088
+\AtEndOfClass{\ifx\ver@hyperref\relax\else\newcommand{\href}[2]{#2}\fi}
 % contact + socials
 \newcommand{\nacv@contact}{}
 \newcommand{\nacv@contact@icon}[3]{\g@addto@macro\nacv@contact{\nameiconlink{#1}{#2}{#3}\par}}
