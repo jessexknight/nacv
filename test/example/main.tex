@@ -1,0 +1,40 @@
+\documentclass[
+  datewid=4em,
+  margin=3cm,
+  datesep=--,
+]{nacv}
+\usepackage[colorlinks]{hyperref}
+\renewcommand{\familydefault}{\sfdefault}
+\addbibresource{main.bib}\nocite{*}
+\name{First}{Last}
+\title{Assistant to the Professor, University of \LaTeX}
+\dated{\today}
+\phone{012-345-6789}
+\email{first.last@email.com}
+\begin{document}
+  \maketitle
+  \section{Education}
+  \twodate
+  \position[2004/09]{2008/04}{PhD}{University of \LaTeX}
+    \detail{Thesis: \emph{Why your bibliography is not compiling}}
+  \position[2000/09]{2004/04}{BSc}{University of \LaTeX}
+    \detail{Specialization: \emph{Bibliographies}}
+  \section{Experience}
+  \position[2008/09]{present}{Assistant to the Professor}{University of \LaTeX}
+  \idem Mark lab reports
+  \idem Deny grade gripes
+  \section{Funding \& Awards}
+  \onedate
+  \subsection{Funding}
+  \funding{2008/01}{Software Grant, UN Agency on Typography}{\$10,000}
+  \subsection{Awards}
+  \default{2008/04}{Most Beautiful Thesis, University of \LaTeX}
+  \default{2000/12}{Best Grandchild, Grandma}
+  \section{Publications}
+  \subsection{Journal Articles}
+  \publications{keyword=jart}
+  \subsection{Conference Presentations}
+  \publications{keyword=conf}
+  \section{Research Interests}
+  \ifem \LaTeX: document classes, bibliographies
+\end{document}
