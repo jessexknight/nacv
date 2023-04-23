@@ -1,0 +1,28 @@
+\documentclass[datewid=4em,margin=4cm]{nacv}
+\usepackage[sfdefault,tabular,osf]{FiraSans}
+\usepackage[hidelinks]{hyperref}
+\renewcommand{\bulletsymbol}{\textbullet}
+\name{First}{Last}
+\title{Research Associate\\University of \LaTeX}
+\contact{}{2023/01}
+\contact[tel:]{phone}{012-345-6789}
+\contact[mailto:]{envelope}{first.last@email.com}
+\begin{document}
+  \maketitle
+  \section{Section}
+  \subsection{twodate}\twodate
+  \dated{2020/09}{present}{dated: twodate}
+  \dated{}{2020/09}{dated}
+  \bullet bullet
+  \bullet bullet
+  \subsection{onedate}\onedate
+  \dated{}{present}{dated: onedate}
+  \dated{}{2020/09}{dated}
+  \bullet bullet
+  \bullet bullet
+  \subsection{nodate}\nodate
+  \dated{}{}{dated: nodate}
+  \dated{}{}{dated}
+  \bullet bullet
+  \bullet bullet
+\end{document}
