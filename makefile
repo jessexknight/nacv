@@ -22,12 +22,6 @@ tests:
 		cd ../../ ;\
 	done
 
-debug:
-	cp nacv/nacv.cls test/.debug/ ;\
-	cd test/.debug ;\
-	pdflatex main && pdflatex main && biber main && pdflatex main ;\
-	rm nacv.cls ;\
-
 zip:
 	zip ctan/nacv.zip \
 		nacv/nacv.dtx \
