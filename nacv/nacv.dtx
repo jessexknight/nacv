@@ -1,14 +1,55 @@
-%%
-%% This is file `nacv.cls',
-%% generated with the docstrip utility.
-%%
-%% The original source files were:
-%%
-%% nacv.dtx  (with options: `class')
-%% TODO
-\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesClass{nacv}
+% \iffalse
+%<*driver>
+\ProvidesFile{nacv.dtx}
+%</driver>
+%<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<class>\ProvidesClass{nacv}
+%<*class>
 [2023/04/22 v0.1.0 Not Another CV class]
+%</class>
+%
+%<*driver>
+\documentclass[10pt]{ltxdoc}
+\usepackage[sfdefault,osf,tabular]{gandhi}
+\usepackage[margin=3cm,inner=5cm]{geometry}
+\usepackage{xcolor}
+\definecolor{code}{HTML}{990033}
+\definecolor{link}{HTML}{003399}
+\let\ottfamily\ttfamily
+\renewcommand{\ttfamily}{\color{code}\ottfamily}
+\renewcommand{\MacroFont}{\ttfamily\small}
+\usepackage[colorlinks,linkcolor=link,urlcolor=link]{hyperref}
+\newcommand{\hreftt}[2][http://]{\href{#1#2}{\texttt{#2}}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\begin{document}
+  \DocInput{nacv.dtx}
+\end{document}
+%</driver>
+% \fi
+% \GetFileInfo{nacv.dtx}
+% \title{The \textit{nacv} class
+%   \thanks{\fileversion~[\filedate],\quad
+%   \hreftt{ctan.org/pkg/nacv},\quad
+%   \hreftt{github.com/jessexknight/ut-thesis}}}
+% \author{Jesse Knight
+%     \thanks{maintainer, contact:
+%     \hreftt[mailto:]{jesse.x.knight@protonmail.com}}}
+% \maketitle
+% \begin{abstract}\noindent
+%   The \textit{nacv} document class provides three basic features:
+%   a dates column,
+%   some tools for listing publications from a bib file, and
+%   some icons via \textit{fontawesome} for contact info.
+% \end{abstract}
+% {\tableofcontents}
+% \clearpage
+% \section{Usage}\label{use}
+% |\documentclass[<options>]{nacv}|
+% \clearpage
+% \section{Implementation}
+%    \begin{macrocode}
+% options
 \RequirePackage{kvoptions}
 \SetupKeyvalOptions{family=nacv,prefix=nacv@}
 \DeclareStringOption[0ex]{itemsep}
@@ -22,14 +63,17 @@
 \ProcessKeyvalOptions*
 \ProcessOptions\relax
 \LoadClass{article}
+% packages
 \RequirePackage[nomarginpar,margin=\nacv@margin]{geometry}
 \RequirePackage{calc}
 \RequirePackage{fontawesome5}
+% misc lengths
 \setlength\parindent{0pt}
 \setlength\parskip{0pt}
 \newlength\nacv@w@itemsep
 \setlength\nacv@w@itemsep{\nacv@itemsep}
 \newlength\nacv@w@bullet
+% date lengths
 \newlength\nacv@w@date
 \newlength\nacv@w@datesep
 \newlength\nacv@w@dategap
@@ -47,6 +91,7 @@
   \setlength\nacv@w@datesep{\widthof{\nacv@datesep}}%
   \setlength\nacv@w@dategap{\nacv@dategap}%
   \twodate}
+% date boxes
 \newcommand{\ifempty}[3]{\if\relax\detokenize{#1}\relax#2\else#3\fi}
 \newcommand{\datestr}[2]{\datestyle\strut%
   \ifempty{#1}{\hfill#2}{#1\hfill\nacv@datesep\hfill#2}}
@@ -60,6 +105,7 @@
 \renewcommand{\bullet}[1][\nacv@w@itemsep]{\par%
   \addvspace{#1}\hskip\dimexpr\nacv@w@datex+\nacv@w@dategap%
   {\bulletsymbol}\hskip\labelsep\ignorespaces}
+% name & title
 \newcommand{\name}[2]{
   \gdef\nacv@name@given{#1}
   \gdef\nacv@name@family{#2}}
@@ -67,6 +113,7 @@
 \renewcommand{\title}[1]{
   \gdef\nacv@title{#1}}
 \title{(Title)}
+% contact info & icons
 \newcommand{\nacv@contact@data}{}
 \newcommand{\nacv@icon}[1]{%
   \parbox{1em}{\centering\small\ifempty{#1}{~}{\faIcon{#1}}}}
@@ -74,6 +121,9 @@
   \ifempty{#1}{#3~\nacv@icon{#2}}{\href{#1#3}{#3~\nacv@icon{#2}}}}
 \newcommand{\contact}[3][]{%
   \g@addto@macro\nacv@contact@data{\nacv@iconlink{#1}{#2}{#3}\par}}
+% TODO: \contact*{site}{id} -> \contact[https://site.com]{site}{id}
+% https://tex.stackexchange.com/questions/4386
+% maketitle
 \renewcommand{\maketitle}{%
   \thispagestyle{empty}%
   \parbox[t]{\textwidth}{%
@@ -83,6 +133,7 @@
   \hspace{-\textwidth}%
   \parbox[t]{\textwidth}{%
     \raggedleft\contactstyle\nacv@contact@data\par}}
+% bib stuff
 \RequirePackage[
   backend=biber,
   sorting=symd,
@@ -105,13 +156,14 @@
 \newcommand{\publications}[2][]{\nocite{#1}\par%
   \addvspace{\nacv@w@itemsep}%
   \printbibliography[resetnumbers=true,heading=none,#2]}
+% hyperref hack: https://tex.stackexchange.com/questions/484088
 \AtEndOfClass{\ifx\ver@hyperref\relax\else\newcommand{\href}[2]{#2}\fi}
+% hooks
 \renewcommand{\@seccntformat}[1]{}
 \newcommand{\datestyle}{\normalfont}
 \newcommand{\contactstyle}{\normalsize}
 \newcommand{\namestyle}{\huge}
 \newcommand{\titlestyle}{\normalsize}
 \newcommand{\bulletsymbol}{\textbullet}
+%    \end{macrocode}
 \endinput
-%%
-%% End of file `nacv.cls'.
