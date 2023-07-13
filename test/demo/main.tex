@@ -7,6 +7,7 @@
 \contact{}{2023/01}
 \contact[tel:]{phone}{012-345-6789}
 \contact[mailto:]{envelope}{first.last@email.com}
+\addbibresource{main.bib}
 \begin{document}
   \maketitle
   \section{Section}
@@ -25,4 +26,12 @@
   \dated{}{}{dated}
   \bullet bullet
   \bullet bullet
+  \section{Publications}
+  \nocite{*}
+  \subsection{In Preparation}
+  \publications{type=unpublished}
+  \subsection{Journal Articles}
+  \publications{type=article}
+  \subsection{Conference Presentations}
+  \publications{type=inproceedings}
 \end{document}

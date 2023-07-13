@@ -17,7 +17,7 @@ tests:
 	for test in test/* ; do \
 		cp nacv/nacv.cls $$test ;\
 		cd $$test ;\
-		pdflatex main && pdflatex main && biber main && pdflatex main ;\
+		pdflatex main && biber main && pdflatex main && pdflatex main ;\
 		rm nacv.cls ;\
 		cd ../../ ;\
 	done
