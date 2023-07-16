@@ -8,7 +8,7 @@
 %% TODO
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{nacv}
-[2023/04/22 v0.1.0 Not Another CV class]
+[2023/07/15 v0.2.0 Not Another CV class]
 \RequirePackage{kvoptions}
 \SetupKeyvalOptions{family=nacv,prefix=nacv@}
 \DeclareStringOption[0ex]{itemsep}
@@ -48,15 +48,15 @@
   \setlength\nacv@w@dategap{\nacv@dategap}%
   \twodate}
 \newcommand{\ifempty}[3]{\if\relax\detokenize{#1}\relax#2\else#3\fi}
-\newcommand{\datestr}[2]{\datestyle\strut%
-  \ifempty{#1}{\hfill#2}{#1\hfill\nacv@datesep\hfill#2}}
-\newcommand{\datebox}[3]{%
+\newcommand{\nacv@datestr}[2]{\datestyle{\strut%
+  \ifempty{#1}{\hfill#2}{#1\hfill\nacv@datesep\hfill#2}}}
+\newcommand{\nacv@datebox}[3]{%
   \ifdim\nacv@w@datex<0pt\hskip\nacv@w@datex\fi%
-  \parbox[t]{\nacv@w@datex}{\datestr{#1}{#2}}%
+  \parbox[t]{\nacv@w@datex}{\nacv@datestr{#1}{#2}}%
   \hskip\nacv@w@dategap%
   \parbox[t]{\nacv@w@afterdatex}{\strut#3\strut}\par}
 \newcommand{\dated}[4][\nacv@w@itemsep]{\par%
-  \addvspace{#1}\datebox{#2}{#3}{#4}\par}
+  \addvspace{#1}\nacv@datebox{#2}{#3}{#4}\par}
 \renewcommand{\bullet}[1][\nacv@w@itemsep]{\par%
   \addvspace{#1}\hskip\dimexpr\nacv@w@datex+\nacv@w@dategap%
   {\bulletsymbol}\hskip\labelsep\ignorespaces}
@@ -67,22 +67,22 @@
 \renewcommand{\title}[1]{
   \gdef\nacv@title{#1}}
 \title{(Title)}
-\newcommand{\nacv@contact@data}{}
+\newcommand{\nacv@contact@list}{}
 \newcommand{\nacv@icon}[1]{%
   \parbox{1em}{\centering\small\ifempty{#1}{~}{\faIcon{#1}}}}
 \newcommand{\nacv@iconlink}[3]{%
   \ifempty{#1}{#3~\nacv@icon{#2}}{\href{#1#3}{#3~\nacv@icon{#2}}}}
 \newcommand{\contact}[3][]{%
-  \g@addto@macro\nacv@contact@data{\nacv@iconlink{#1}{#2}{#3}\par}}
+  \g@addto@macro\nacv@contact@list{\nacv@iconlink{#1}{#2}{#3}\par}}
 \renewcommand{\maketitle}{%
   \thispagestyle{empty}%
   \parbox[t]{\textwidth}{%
-    {\namestyle\nacv@name@given~\nacv@name@family}\par%
+    {\namestyle{\nacv@name@given~\nacv@name@family}}\par%
     \addvspace{1ex}%
-    {\titlestyle\nacv@title}\par}%
+    {\titlestyle{\nacv@title}}\par}%
   \hspace{-\textwidth}%
   \parbox[t]{\textwidth}{%
-    \raggedleft\contactstyle\nacv@contact@data\par}}
+    \raggedleft\contactstyle{\nacv@contact@list}\par}}
 \RequirePackage[
   backend=biber,
   sorting=symd,
@@ -107,10 +107,10 @@
   \printbibliography[resetnumbers=true,heading=none,#2]}
 \AtEndOfClass{\ifx\ver@hyperref\relax\else\newcommand{\href}[2]{#2}\fi}
 \renewcommand{\@seccntformat}[1]{}
-\newcommand{\datestyle}{\normalfont}
-\newcommand{\contactstyle}{\normalsize}
-\newcommand{\namestyle}{\huge}
-\newcommand{\titlestyle}{\normalsize}
+\newcommand{\datestyle}[1]{#1}
+\newcommand{\namestyle}[1]{\huge#1}
+\newcommand{\titlestyle}[1]{#1}
+\newcommand{\contactstyle}[1]{#1}
 \newcommand{\bulletsymbol}{\textbullet}
 \endinput
 %%

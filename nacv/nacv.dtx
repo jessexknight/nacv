@@ -5,50 +5,171 @@
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<class>\ProvidesClass{nacv}
 %<*class>
-[2023/04/22 v0.1.0 Not Another CV class]
+[2023/07/15 v0.2.0 Not Another CV class]
 %</class>
 %
 %<*driver>
 \documentclass[10pt]{ltxdoc}
 \usepackage[sfdefault,osf,tabular]{gandhi}
+\usepackage[italic]{mathastext}
+\usepackage{nimbusmononarrow}
+\usepackage[onehalfspacing]{setspace}
 \usepackage[margin=3cm,inner=5cm]{geometry}
 \usepackage{xcolor}
 \definecolor{code}{HTML}{990033}
 \definecolor{link}{HTML}{003399}
+\usepackage{enumitem}
+\setitemize{itemsep=0pt}
 \let\ottfamily\ttfamily
 \renewcommand{\ttfamily}{\color{code}\ottfamily}
-\renewcommand{\MacroFont}{\ttfamily\small}
+\renewcommand{\MacroFont}{\ttfamily}
 \usepackage[colorlinks,linkcolor=link,urlcolor=link]{hyperref}
 \newcommand{\hreftt}[2][http://]{\href{#1#2}{\texttt{#2}}}
+\newcommand{\default}[1]{(\texttt{#1})}
+\renewcommand{\marg}[1]{\texttt{\{#1\}}}
+\renewcommand{\oarg}[1]{\texttt{[#1]}}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
+\renewcommand{\bullet}{\par\textbullet\hskip\labelsep\ignorespaces}
 \begin{document}
   \DocInput{nacv.dtx}
 \end{document}
 %</driver>
 % \fi
 % \GetFileInfo{nacv.dtx}
-% \title{The \textit{nacv} class
+% \title{The \emph{nacv} class
 %   \thanks{\fileversion~[\filedate],\quad
 %   \hreftt{ctan.org/pkg/nacv},\quad
-%   \hreftt{github.com/jessexknight/ut-thesis}}}
+%   \hreftt{github.com/jessexknight/nacv}}}
 % \author{Jesse Knight
 %     \thanks{maintainer, contact:
 %     \hreftt[mailto:]{jesse.x.knight@protonmail.com}}}
 % \maketitle
 % \begin{abstract}\noindent
-%   The \textit{nacv} document class provides three basic features:
-%   a dates column,
-%   some tools for listing publications from a bib file, and
-%   some icons via \textit{fontawesome} for contact info.
+%   The \emph{nacv} document class provides four basic features:
+%   a column for dates,
+%   bulleted items without the environment,
+%   some commands for listing publications from a \emph{Bib\TeX} file, and
+%   some commands for listing contact info using \emph{fontawesome} icons.
 % \end{abstract}
 % {\tableofcontents}
 % \clearpage
 % \section{Usage}\label{use}
 % |\documentclass[<options>]{nacv}|
+% \subsection{Options}\label{use:opt}
+% Default options are denoted like \default{this}.
+% \par
+% Options from the parent \emph{article} class are also available.
+% \begin{macro}{<itemsep=*>}\default{0ex}
+%   Vertical space added between most elements using |\addvspace|.
+% \end{macro}
+% \begin{macro}{<datesep=*>}\default{--}
+%   Symbol between two dates.
+% \end{macro}
+% \begin{macro}{<datewid=*>}\default{4em}
+%   Standard width of a single date.
+% \end{macro}
+% \begin{macro}{<dategap=*>}\default{1em}
+%   Horizontal space between the date(s) and content.
+% \end{macro}
+% \begin{macro}{<margin=*>}\default{35mm}
+%   The page margins.
+% \end{macro}
+% \begin{macro}{<bibnamebold=*>}\default{true}
+%   Whether the CV author's name is be bolded in |\publications|.
+% \end{macro}
+% \subsection{Commands}\label{use:cmd}
+% Optional and mandatory arguments are denoted like \oarg{this} and \marg{this}.
+% \par
+% Commands from the parent \emph{article} class are also available,
+% including |\section|, etc.
+% \subsubsection{Dates Column}\label{use:cmd:dates}
+% The dates column is implemented using pairs of top-aligned |\parbox|,
+% separated horizontally by |<dategap>|.
+% The width of the \emph{date} box is defined
+% based on the most recent |\*date| command as follows:
+% \begin{macro}{\twodate}
+%   Sets \emph{date} box width to: |2*<datewid>+\widthof{<datesep>}| (default)
+% \end{macro}
+% \begin{macro}{\onedate}
+%   Sets \emph{date} box width to: |<datewid>|
+% \end{macro}
+% \begin{macro}{\nodate}
+%   Sets \emph{date} box width to: |0pt|
+% \end{macro}
+% The width of the \emph{content} box is defined to be the remaining |\linewidth|.
+% The width definitions are processed in |\AtBeginDocument|
+% so that any font changes are reflected in |\widthof{<datesep>}|.
+% \begin{macro}{\dated}\oarg{topsep}\marg{from}\marg{to}\marg{content}
+%   The workhorse macro for dated elements:
+%   creates the two |\parbox|.
+%   Users can/should create content-specific commands using |\dated|
+%   (e.g., |\education|, |\award|, etc.),
+%   which \emph{nacv} avoids doing to allow maximum flexibility.
+%   \bullet \oarg{topsep} can be used to override
+%   the default space (|<itemsep>|) between elements.
+%   \bullet If \marg{from} is non-empty, the \emph{date} box will contain:
+%   |{from}\hfill<datesep>\hfill{to}|.
+%   \bullet If \marg{from} is empty, the \emph{date} box will contain:
+%   |\hfill{to}| (right justified).
+%   \bullet The \emph{content} box will of course contain \marg{content}.
+% \end{macro}
+% \begin{macro}{\bullet}\oarg{topsep}
+%   The workhorse macro for itemized content:
+%   skips the date column and adds |<bulletsymbol>|.
+%   Similar to |\item|, the content is not an argument.
+%   Unlike |\item|, there is no surrounding environment or extra space.
+%   The downside is that wrapping content (longer than one line) does not align.
+% \end{macro}
+% \subsubsection{Name \& Contact}\label{use:cmd:name}
+% \begin{macro}{\name}\marg{given}\marg{family}
+%   Stores the name of the CV author for |\maketitle| and |\publications|.
+% \end{macro}
+% \begin{macro}{\title}\marg{title}
+%   Stores the title and/or affiliation of the CV author for |\maketitle|.
+% \end{macro}
+% \begin{macro}{\contact}\oarg{href}\marg{icon}\marg{name}
+%   Adds an item of contact info to an internal macro for |\maketitle|.
+%   TODO: finish after revising definition.
+% \end{macro}
+% \begin{macro}{\maketitle}
+%   Creates the author block, comprising
+%   the name and title left left-aligned, and
+%   the list of contact info right-aligned.
+%   Each side is added in a |\parbox| that is |\textwidth| wide,
+%   so users should check for overlapping content.
+% \end{macro}
+% \subsubsection{Publications}\label{use:cmd:pubs}
+% \begin{macro}{\publications}\oarg{bibids}\marg{bibargs}
+%   A glorified wrapper for |\printbibliography| with helpful defaults
+%   and two ways to select a subset of references:
+%   \bullet \oarg{bibids} can be passed to |\nocite| to manually select references.
+%   \bullet \marg{bibargs} are passed to |\printbibliography| to filter references by attributes;
+%   e.g., |type=article|, |keyword=oral|, etc.
+%   Users must add |\nocite{*}| first with this approach.
+% \end{macro}
+% \subsubsection{Style Hooks}\label{use:cmd:style}
+% The following style hooks support customization of some elements,
+% with default values denoted like \default{this}.
+% \begin{macro}{\datestyle}\marg{arg}~\default{\#1}
+%   Styles dates in |\dated|.
+% \end{macro}
+% \begin{macro}{\namestyle}\marg{arg}~\default{\cmd{\huge}\#1}
+%   Styles the name in |\maketitle|.
+% \end{macro}
+% \begin{macro}{\titlestyle}\marg{arg}~\default{\#1}
+%   Styles title name in |\maketitle|.
+% \end{macro}
+% \begin{macro}{\contactstyle}\marg{arg}~\default{\#1}
+%   Styles contact information in |\maketitle|.
+% \end{macro}
+% \begin{macro}{\bulletsymbol}\default{\cmd{\textbullet}}
+%   The symbol used in |\bullet|.
+% \end{macro}
 % \clearpage
-% \section{Implementation}
+% \section{Implementation}\label{imp}
 %    \begin{macrocode}
+% TODO: documentation
 % options
 \RequirePackage{kvoptions}
 \SetupKeyvalOptions{family=nacv,prefix=nacv@}
@@ -93,15 +214,15 @@
   \twodate}
 % date boxes
 \newcommand{\ifempty}[3]{\if\relax\detokenize{#1}\relax#2\else#3\fi}
-\newcommand{\datestr}[2]{\datestyle\strut%
-  \ifempty{#1}{\hfill#2}{#1\hfill\nacv@datesep\hfill#2}}
-\newcommand{\datebox}[3]{%
+\newcommand{\nacv@datestr}[2]{\datestyle{\strut%
+  \ifempty{#1}{\hfill#2}{#1\hfill\nacv@datesep\hfill#2}}}
+\newcommand{\nacv@datebox}[3]{%
   \ifdim\nacv@w@datex<0pt\hskip\nacv@w@datex\fi%
-  \parbox[t]{\nacv@w@datex}{\datestr{#1}{#2}}%
+  \parbox[t]{\nacv@w@datex}{\nacv@datestr{#1}{#2}}%
   \hskip\nacv@w@dategap%
   \parbox[t]{\nacv@w@afterdatex}{\strut#3\strut}\par}
 \newcommand{\dated}[4][\nacv@w@itemsep]{\par%
-  \addvspace{#1}\datebox{#2}{#3}{#4}\par}
+  \addvspace{#1}\nacv@datebox{#2}{#3}{#4}\par}
 \renewcommand{\bullet}[1][\nacv@w@itemsep]{\par%
   \addvspace{#1}\hskip\dimexpr\nacv@w@datex+\nacv@w@dategap%
   {\bulletsymbol}\hskip\labelsep\ignorespaces}
@@ -114,25 +235,25 @@
   \gdef\nacv@title{#1}}
 \title{(Title)}
 % contact info & icons
-\newcommand{\nacv@contact@data}{}
+\newcommand{\nacv@contact@list}{}
 \newcommand{\nacv@icon}[1]{%
   \parbox{1em}{\centering\small\ifempty{#1}{~}{\faIcon{#1}}}}
 \newcommand{\nacv@iconlink}[3]{%
   \ifempty{#1}{#3~\nacv@icon{#2}}{\href{#1#3}{#3~\nacv@icon{#2}}}}
 \newcommand{\contact}[3][]{%
-  \g@addto@macro\nacv@contact@data{\nacv@iconlink{#1}{#2}{#3}\par}}
+  \g@addto@macro\nacv@contact@list{\nacv@iconlink{#1}{#2}{#3}\par}}
 % TODO: \contact*{site}{id} -> \contact[https://site.com]{site}{id}
 % https://tex.stackexchange.com/questions/4386
 % maketitle
 \renewcommand{\maketitle}{%
   \thispagestyle{empty}%
   \parbox[t]{\textwidth}{%
-    {\namestyle\nacv@name@given~\nacv@name@family}\par%
+    {\namestyle{\nacv@name@given~\nacv@name@family}}\par%
     \addvspace{1ex}%
-    {\titlestyle\nacv@title}\par}%
+    {\titlestyle{\nacv@title}}\par}%
   \hspace{-\textwidth}%
   \parbox[t]{\textwidth}{%
-    \raggedleft\contactstyle\nacv@contact@data\par}}
+    \raggedleft\contactstyle{\nacv@contact@list}\par}}
 % bib stuff
 \RequirePackage[
   backend=biber,
@@ -160,10 +281,11 @@
 \AtEndOfClass{\ifx\ver@hyperref\relax\else\newcommand{\href}[2]{#2}\fi}
 % hooks
 \renewcommand{\@seccntformat}[1]{}
-\newcommand{\datestyle}{\normalfont}
-\newcommand{\contactstyle}{\normalsize}
-\newcommand{\namestyle}{\huge}
-\newcommand{\titlestyle}{\normalsize}
+\newcommand{\datestyle}[1]{#1}
+\newcommand{\namestyle}[1]{\huge#1}
+\newcommand{\titlestyle}[1]{#1}
+\newcommand{\contactstyle}[1]{#1}
 \newcommand{\bulletsymbol}{\textbullet}
+% end
 %    \end{macrocode}
 \endinput
