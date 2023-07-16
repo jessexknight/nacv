@@ -1,8 +1,3 @@
-\input docstrip.tex
-\keepsilent
-\usedir{tex/latex/nacv}
-\preamble
-
 LaTeX2e document class for CV (curriculum vitae)
 that provides four basic features:
 a column for dates,
@@ -26,7 +21,6 @@ The Current Maintainer of this work is
 Jesse Knight <jesse.knight@mail.utoronto.ca>.
 
 This work consists of the files:
-- README
 - nacv.dtx
 - nacv.ins
 - nacv.pdf (derived user manual)
@@ -41,7 +35,3 @@ and the documentation: $texmf/doc/latex/nacv/nacv.pdf
 
 See version history on GitHub:
 [https://github.com/jessexknight/nacv]
-
-\endpreamble
-\generate{\file{nacv.cls}{\from{nacv.dtx}{class}}}
-\endbatchfile

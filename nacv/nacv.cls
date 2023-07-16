@@ -5,10 +5,49 @@
 %% The original source files were:
 %%
 %% nacv.dtx  (with options: `class')
-%% TODO
+%% 
+%% LaTeX2e document class for CV (curriculum vitae)
+%% that provides four basic features:
+%% a column for dates,
+%% bulleted items without the environment,
+%% some commands for listing publications from a BibTeX file, and
+%% some commands for listing contact info using fontawesome icons.
+%% 
+%% Copyright (c) 2023 Jesse Knight <jesse.x.knight@protonmail.com>
+%% 
+%% This work may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public Licence, either version 1.3c of this licence
+%% or (at your option) any later version.
+%% The latest version of this licence is in
+%%     http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "maintained".
+%% 
+%% The Current Maintainer of this work is
+%% Jesse Knight <jesse.knight@mail.utoronto.ca>.
+%% 
+%% This work consists of the files:
+%% - README
+%% - nacv.dtx
+%% - nacv.ins
+%% - nacv.pdf (derived user manual)
+%% - nacv.cls (derived class file)
+%% 
+%% To generate nacv.cls (class file), run: pdflatex nacv.ins
+%% To generate nacv.pdf (documentation), run: pdflatex nacv.dtx
+%% To use the class, make nacv.cls visible to your LaTeX distribution,
+%% by placing nacv.cls either in your working directory,
+%% or in your texmf tree, perhaps: $texmf/tex/latex/nacv/nacv.cls
+%% and the documentation: $texmf/doc/latex/nacv/nacv.pdf
+%% 
+%% See version history on GitHub:
+%% [https://github.com/jessexknight/nacv]
+%% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{nacv}
-[2023/07/15 v0.2.0 Not Another CV class]
+[2023/07/16 v0.2.1 Not Another CV class]
 \RequirePackage{kvoptions}
 \SetupKeyvalOptions{family=nacv,prefix=nacv@}
 \DeclareStringOption[0ex]{itemsep}
