@@ -6,6 +6,7 @@
 *.blg
 *-blx.bib
 *.brf
+*.hd
 *.log
 *.out
 *.run.xml
