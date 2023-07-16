@@ -5,7 +5,7 @@
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<class>\ProvidesClass{nacv}
 %<*class>
-[2023/07/15 v0.2.0 Not Another CV class]
+[2023/07/16 v0.2.1 Not Another CV class]
 %</class>
 %
 %<*driver>
@@ -128,9 +128,16 @@
 % \begin{macro}{\title}\marg{title}
 %   Stores the title and/or affiliation of the CV author for |\maketitle|.
 % \end{macro}
-% \begin{macro}{\contact}\oarg{href}\marg{icon}\marg{name}
-%   Adds an item of contact info to an internal macro for |\maketitle|.
-%   TODO: finish after revising definition.
+% \begin{macro}{\contact}\oarg{href}\marg{icon}\marg{label}
+%   Adds an item of contact info to an internal list for |\maketitle|.
+%   \bullet If \oarg{href} is non-empty, the item will link to ``\oarg{href}\marg{label}''
+%   (e.g. |[href]=mailto:| and |{label}=first.last@mail.com| will link to
+%   ``|mailto:first.last@mail.com|'').
+%   \bullet If \oarg{href} is empty (default), no link will be created.
+%   \bullet If \marg{icon} is non-empty, that \emph{fontawesome} icon
+%   will be added to the right of the text.
+%   \bullet If \marg{icon} is empty, no icon will be added.
+%   \bullet \marg{label} is the text added to the left of the icon.
 % \end{macro}
 % \begin{macro}{\maketitle}
 %   Creates the author block, comprising
@@ -144,8 +151,8 @@
 %   A glorified wrapper for |\printbibliography| with helpful defaults
 %   and two ways to select a subset of references:
 %   \bullet \oarg{bibids} can be passed to |\nocite| to manually select references.
-%   \bullet \marg{bibargs} are passed to |\printbibliography| to filter references by attributes;
-%   e.g., |type=article|, |keyword=oral|, etc.
+%   \bullet \marg{bibargs} are passed to |\printbibliography| to filter references by attributes
+%   (e.g., |type=article|, |keyword=oral|, etc.).
 %   Users must add |\nocite{*}| first with this approach.
 % \end{macro}
 % \subsubsection{Style Hooks}\label{use:cmd:style}
@@ -243,8 +250,6 @@
   \ifempty{#1}{#3~\nacv@icon{#2}}{\href{#1#3}{#3~\nacv@icon{#2}}}}
 \newcommand{\contact}[3][]{%
   \g@addto@macro\nacv@contact@list{\nacv@iconlink{#1}{#2}{#3}\par}}
-% TODO: \contact*{site}{id} -> \contact[https://site.com]{site}{id}
-% https://tex.stackexchange.com/questions/4386
 % maketitle
 \renewcommand{\maketitle}{%
   \thispagestyle{empty}%
