@@ -29,32 +29,30 @@
 \setlength\parskip{0pt}
 \newlength\nacv@w@itemsep
 \setlength\nacv@w@itemsep{\nacv@itemsep}
-\newlength\nacv@w@bullet
 \newlength\nacv@w@date
 \newlength\nacv@w@datesep
 \newlength\nacv@w@dategap
 \newlength\nacv@w@datex
-\newlength\nacv@w@afterdatex
+\newlength\nacv@w@contentx
 \newcommand{\nacv@w@update}[1]{%
   \setlength\nacv@w@datex{\dimexpr#1}%
-  \setlength\nacv@w@afterdatex{\dimexpr\linewidth-\nacv@w@datex-\nacv@w@dategap}}
+  \setlength\nacv@w@contentx{\dimexpr\linewidth-\nacv@w@datex-\nacv@w@dategap}}
 \newcommand{\nodate}{\nacv@w@update{-\nacv@w@dategap}}
 \newcommand{\onedate}{\nacv@w@update{\nacv@w@date}}
 \newcommand{\twodate}{\nacv@w@update{2\nacv@w@date+\nacv@w@datesep}}
 \AtBeginDocument{%
-  \setlength\nacv@w@bullet{\widthof{\bulletsymbol}}%
   \setlength\nacv@w@date{\nacv@datewid}%
   \setlength\nacv@w@datesep{\widthof{\nacv@datesep}}%
   \setlength\nacv@w@dategap{\nacv@dategap}%
   \twodate}
 \newcommand{\ifempty}[3]{\if\relax\detokenize{#1}\relax#2\else#3\fi}
-\newcommand{\nacv@datestr}[2]{\datestyle{\strut%
-  \ifempty{#1}{\hfill#2}{#1\hfill\nacv@datesep\hfill#2}}}
+\newcommand{\nacv@datestr}[2]{%
+  \ifempty{#1}{\hfill#2}{#1\hfill\nacv@datesep\hfill#2}}
 \newcommand{\nacv@datebox}[3]{%
   \ifdim\nacv@w@datex<0pt\hskip\nacv@w@datex\fi%
-  \parbox[t]{\nacv@w@datex}{\nacv@datestr{#1}{#2}}%
+  \parbox[t]{\nacv@w@datex}{\datestyle{\nacv@datestr{#1}{#2}}\par}%
   \hskip\nacv@w@dategap%
-  \parbox[t]{\nacv@w@afterdatex}{\strut#3\strut}\par}
+  \parbox[t]{\nacv@w@contentx}{\contentstyle{#3}\par}}
 \newcommand{\dated}[4][\nacv@w@itemsep]{\par%
   \addvspace{#1}\nacv@datebox{#2}{#3}{#4}\par}
 \renewcommand{\bullet}[1][\nacv@w@itemsep]{\par%
@@ -107,7 +105,8 @@
   \printbibliography[resetnumbers=true,heading=none,#2]}
 \AtEndOfClass{\ifx\ver@hyperref\relax\else\newcommand{\href}[2]{#2}\fi}
 \renewcommand{\@seccntformat}[1]{}
-\newcommand{\datestyle}[1]{#1}
+\newcommand{\datestyle}[1]{\strut#1}
+\newcommand{\contentstyle}[1]{\strut#1}
 \newcommand{\namestyle}[1]{\huge#1}
 \newcommand{\titlestyle}[1]{#1}
 \newcommand{\contactstyle}[1]{#1}
