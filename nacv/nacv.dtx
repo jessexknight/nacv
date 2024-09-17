@@ -5,7 +5,7 @@
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<class>\ProvidesClass{nacv}
 %<*class>
-[2023/07/16 v0.2.1 Not Another CV class]
+[2024/09/16 v0.2.2 Not Another CV class]
 %</class>
 %
 %<*driver>
@@ -38,8 +38,8 @@
 % \fi
 % \GetFileInfo{nacv.dtx}
 % \title{The \emph{nacv} class
-%   \thanks{\fileversion~[\filedate],\quad
-%   \hreftt{ctan.org/pkg/nacv},\quad
+%   \thanks{\fileversion~[\filedate],
+%   \hreftt{ctan.org/pkg/nacv} (coming soon),
 %   \hreftt{github.com/jessexknight/nacv}}}
 % \author{Jesse Knight
 %     \thanks{maintainer, contact:
@@ -76,7 +76,7 @@
 %   The page margins.
 % \end{macro}
 % \begin{macro}{<bibnamebold=*>}\default{true}
-%   Whether the CV author's name is be bolded in |\publications|.
+%   Whether the CV author's name is bolded in |\publications|.
 % \end{macro}
 % \subsection{Commands}\label{use:cmd}
 % Optional and mandatory arguments are denoted like \oarg{this} and \marg{this}.
@@ -95,7 +95,7 @@
 %   Sets \emph{date} box width to: |<datewid>|
 % \end{macro}
 % \begin{macro}{\nodate}
-%   Sets \emph{date} box width to: |-<dategap>|
+%   Sets \emph{date} box width to: |-<dategap>| (flush with margin)
 % \end{macro}
 % The width of the \emph{content} box is defined to be the remaining |\linewidth|.
 % The width definitions are processed in |\AtBeginDocument|
@@ -134,7 +134,8 @@
 %   (e.g. |[href]=mailto:| and |{label}=first.last@mail.com| will link to
 %   ``|mailto:first.last@mail.com|'').
 %   \bullet If \oarg{href} is empty (default), no link will be created.
-%   \bullet If \marg{icon} is non-empty, that \emph{fontawesome} icon
+%   \bullet If \marg{icon} is non-empty, that
+%   \href{https://ctan.org/pkg/fontawesome5}{\emph{fontawesome}} icon
 %   will be added to the right of the text.
 %   \bullet If \marg{icon} is empty, no icon will be added.
 %   \bullet \marg{label} is the text added to the left of the icon.
@@ -284,7 +285,9 @@
   \addvspace{\nacv@w@itemsep}%
   \printbibliography[resetnumbers=true,heading=none,#2]}
 % hyperref hack: https://tex.stackexchange.com/questions/484088
-\AtEndOfClass{\ifx\ver@hyperref\relax\else\newcommand{\href}[2]{#2}\fi}
+\AtEndOfClass{\ifx\ver@hyperref\relax%
+  \hypersetup{pdftitle={CV},pdfauthor={\nacv@name@first\ \nacv@name@last}}%
+  \relax\else\newcommand{\href}[2]{#2}\fi}
 % hooks
 \renewcommand{\@seccntformat}[1]{}
 \newcommand{\datestyle}[1]{\strut#1}

@@ -13,7 +13,7 @@
 %% some commands for listing publications from a BibTeX file, and
 %% some commands for listing contact info using fontawesome icons.
 %% 
-%% Copyright (c) 2023 Jesse Knight <jesse.x.knight@protonmail.com>
+%% Copyright (c) 2024 Jesse Knight <jesse.x.knight@protonmail.com>
 %% 
 %% This work may be distributed and/or modified under the conditions of
 %% the LaTeX Project Public Licence, either version 1.3c of this licence
@@ -47,7 +47,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{nacv}
-[2023/07/16 v0.2.1 Not Another CV class]
+[2024/09/16 v0.2.2 Not Another CV class]
 \RequirePackage{kvoptions}
 \SetupKeyvalOptions{family=nacv,prefix=nacv@}
 \DeclareStringOption[0ex]{itemsep}
@@ -142,7 +142,9 @@
 \newcommand{\publications}[2][]{\nocite{#1}\par%
   \addvspace{\nacv@w@itemsep}%
   \printbibliography[resetnumbers=true,heading=none,#2]}
-\AtEndOfClass{\ifx\ver@hyperref\relax\else\newcommand{\href}[2]{#2}\fi}
+\AtEndOfClass{\ifx\ver@hyperref\relax%
+  \hypersetup{pdftitle={CV},pdfauthor={\nacv@name@first\ \nacv@name@last}}%
+  \relax\else\newcommand{\href}[2]{#2}\fi}
 \renewcommand{\@seccntformat}[1]{}
 \newcommand{\datestyle}[1]{\strut#1}
 \newcommand{\contentstyle}[1]{\strut#1}
