@@ -12,13 +12,13 @@
     \put(0,\fromtop){\drawbox{\nacv@w@date}{date 1}{}}
     \put(\nacv@w@date,\fromtop){{\color{red}\nacv@datesep}}
     \put(\dimexpr\nacv@w@date+\nacv@w@datesep,\fromtop){\drawbox{\nacv@w@date}{}{date 2}}
-    \put(\dimexpr\nacv@w@datex+\nacv@w@dategap,\fromtop){\drawbox{\nacv@w@afterdatex}{twodate content}{}}
+    \put(\dimexpr\nacv@w@datex+\nacv@w@dategap,\fromtop){\drawbox{\nacv@w@contentx}{twodate content}{}}
     \stepcounter{line}\onedate
     \put(0,\fromtop){\drawbox{\nacv@w@datex}{}{date}}
-    \put(\dimexpr\nacv@w@datex+\nacv@w@dategap,\fromtop){\drawbox{\nacv@w@afterdatex}{onedate content}{}}
+    \put(\dimexpr\nacv@w@datex+\nacv@w@dategap,\fromtop){\drawbox{\nacv@w@contentx}{onedate content}{}}
     \stepcounter{line}\nodate
     \put(0,\fromtop){\drawbox{\nacv@w@datex}{}{}}
-    \put(\dimexpr\nacv@w@datex+\nacv@w@dategap,\fromtop){\drawbox{\nacv@w@afterdatex}{nodate content}{}}
+    \put(\dimexpr\nacv@w@datex+\nacv@w@dategap,\fromtop){\drawbox{\nacv@w@contentx}{nodate content}{}}
 }}
 \AddToShipoutPictureFG{\nacvShowFramePicture}
 \makeatother
