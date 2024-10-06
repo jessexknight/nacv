@@ -55,6 +55,7 @@
 \DeclareStringOption[4em]{datewid}
 \DeclareStringOption[1em]{dategap}
 \DeclareStringOption[35mm]{margin}
+\DeclareStringOption[numeric]{bibstyle}
 \DeclareBoolOption[true]{bibnamebold}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ExecuteOptions{}
@@ -123,7 +124,7 @@
 \RequirePackage[
   backend=biber,
   sorting=symd,
-  style=numeric,
+  style=\nacv@bibstyle,
   defernumbers=true,
 ]{biblatex}
 \DeclareSortingTemplate{symd}{
