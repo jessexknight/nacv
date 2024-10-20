@@ -47,7 +47,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{nacv}
-[2024/09/16 v0.2.2 Not Another CV class]
+[2024/10/20 v0.2.3 Not Another CV class]
 \RequirePackage{kvoptions}
 \SetupKeyvalOptions{family=nacv,prefix=nacv@}
 \DeclareStringOption[0ex]{itemsep}
@@ -112,15 +112,17 @@
   \ifempty{#1}{#3~\nacv@icon{#2}}{\href{#1#3}{#3~\nacv@icon{#2}}}}
 \newcommand{\contact}[3][]{%
   \g@addto@macro\nacv@contact@list{\nacv@iconlink{#1}{#2}{#3}\par}}
+\newcommand{\lrboxes}[2]{%
+  \parbox[t]{\textwidth}{#1\par}%
+  \hspace{-\textwidth}%
+  \parbox[t]{\textwidth}{\raggedleft#2\par}}
 \renewcommand{\maketitle}{%
   \thispagestyle{empty}%
-  \parbox[t]{\textwidth}{%
+  \lrboxes{%
     {\namestyle{\nacv@name@given~\nacv@name@family}}\par%
     \addvspace{1ex}%
-    {\titlestyle{\nacv@title}}\par}%
-  \hspace{-\textwidth}%
-  \parbox[t]{\textwidth}{%
-    \raggedleft\contactstyle{\nacv@contact@list}\par}}
+    {\titlestyle{\nacv@title}}\par}
+    {\contactstyle{\nacv@contact@list}\par}}
 \RequirePackage[
   backend=biber,
   sorting=symd,
